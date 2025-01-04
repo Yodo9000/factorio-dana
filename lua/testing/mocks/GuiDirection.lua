@@ -1,5 +1,5 @@
 -- This file is part of Dana.
--- Copyright (C) 2019,2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
+-- Copyright (C) 2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
 --
 -- Dana is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,17 +14,24 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Dana.  If not, see <https://www.gnu.org/licenses/>.
 
-local FactorioLoggerBackend = require("lua/logger/backends/FactorioLoggerBackend")
-local Logger = require("lua/logger/Logger")
-Logger.init(FactorioLoggerBackend)
 
-local EventController = require("lua/EventController")
 
-script.on_configuration_changed(EventController.on_configuration_changed)
-script.on_load(EventController.on_load)
-script.on_init(EventController.on_init)
+-- Mock of LuaGuiElement.direction subtype.
+--
+-- See https://lua-api.factorio.com/1.0.0/LuaGuiElement.html#LuaGuiElement.direction.
+--
+local GuiDirection = {
+    -- Checks if a value is a correct direction.
+    --
+    -- Args:
+    -- * value: string. Value to check.
+    --
+    -- Returns: The input value.
+    --
+    check = function(value)
+        assert(value == "horizontal" or value == "vertical", "Invalid direction: " .. tostring(value))
+        return value
+    end,
+}
 
-local events = defines.events
-for eventName,eventCallback in pairs(EventController.events) do
-	script.on_event(events[eventName], eventCallback)
-end
+return GuiDirection

@@ -1,5 +1,5 @@
 -- This file is part of Dana.
--- Copyright (C) 2019,2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
+-- Copyright (C) 2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
 --
 -- Dana is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,17 +14,20 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Dana.  If not, see <https://www.gnu.org/licenses/>.
 
-local FactorioLoggerBackend = require("lua/logger/backends/FactorioLoggerBackend")
-local Logger = require("lua/logger/Logger")
-Logger.init(FactorioLoggerBackend)
+local IndexGenerator = require("lua/testing/mocks/IndexGenerator")
 
-local EventController = require("lua/EventController")
+describe("IndexGenerator", function()
+    local object
+    before_each(function()
+        object = IndexGenerator.new()
+    end)
 
-script.on_configuration_changed(EventController.on_configuration_changed)
-script.on_load(EventController.on_load)
-script.on_init(EventController.on_init)
+    it(".make()", function()
+        assert.are.equals(object.prevIndex, 0)
+    end)
 
-local events = defines.events
-for eventName,eventCallback in pairs(EventController.events) do
-	script.on_event(events[eventName], eventCallback)
-end
+    it(":newIndex()", function()
+        assert.are.equals(object:newIndex(), 1)
+        assert.are.equals(object:newIndex(), 2)
+    end)
+end)

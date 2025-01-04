@@ -1,5 +1,5 @@
 -- This file is part of Dana.
--- Copyright (C) 2019,2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
+-- Copyright (C) 2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
 --
 -- Dana is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,17 +14,27 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Dana.  If not, see <https://www.gnu.org/licenses/>.
 
-local FactorioLoggerBackend = require("lua/logger/backends/FactorioLoggerBackend")
-local Logger = require("lua/logger/Logger")
-Logger.init(FactorioLoggerBackend)
+local Metatable
 
-local EventController = require("lua/EventController")
+-- Base class for types that are not copied by the SaveLoadTester.
+--
+local AutoLoaded = {
+    -- Creates a new AutoLoaded object.
+    --
+    -- Args:
+    -- * object: table.
+    --
+    -- Returns: AutoLoaded. The `object` argument turned into the desired type.
+    --
+    new = function(object)
+        setmetatable(object, Metatable)
+        return object
+    end,
+}
 
-script.on_configuration_changed(EventController.on_configuration_changed)
-script.on_load(EventController.on_load)
-script.on_init(EventController.on_init)
+-- Metatable of the AutoLoaded class.
+Metatable = {
+    autoLoaded = true,
+}
 
-local events = defines.events
-for eventName,eventCallback in pairs(EventController.events) do
-	script.on_event(events[eventName], eventCallback)
-end
+return AutoLoaded

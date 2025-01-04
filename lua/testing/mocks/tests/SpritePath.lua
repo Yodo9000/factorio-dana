@@ -1,5 +1,5 @@
 -- This file is part of Dana.
--- Copyright (C) 2019,2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
+-- Copyright (C) 2020 Vincent Saulue-Laborde <vincent_saulue@hotmail.fr>
 --
 -- Dana is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
@@ -14,17 +14,18 @@
 -- You should have received a copy of the GNU General Public License
 -- along with Dana.  If not, see <https://www.gnu.org/licenses/>.
 
-local FactorioLoggerBackend = require("lua/logger/backends/FactorioLoggerBackend")
-local Logger = require("lua/logger/Logger")
-Logger.init(FactorioLoggerBackend)
+local SpritePath = require("lua/testing/mocks/SpritePath")
 
-local EventController = require("lua/EventController")
+describe("SpritePath", function()
+    it(".check() -- valid", function()
+        local value = "item/coal"
+        assert.are.equals(value, SpritePath.check(value))
+    end)
 
-script.on_configuration_changed(EventController.on_configuration_changed)
-script.on_load(EventController.on_load)
-script.on_init(EventController.on_init)
-
-local events = defines.events
-for eventName,eventCallback in pairs(EventController.events) do
-	script.on_event(events[eventName], eventCallback)
-end
+    it(".check() -- invalid", function()
+        local value = 12345
+        assert.error(function()
+            SpritePath.check(value)
+        end)
+    end)
+end)
