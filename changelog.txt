@@ -1,0 +1,72 @@
+---------------------------------------------------------------------------------------------------
+Version: 0.3.1
+Date: 2022-08-14
+  Bugfixes:
+    - Fix "Duplicate link index" crashes (caused by recipes having the same item as input/output) (https://mods.factorio.com/mod/dana/discussion/62f7d0c5438d5c033845f57f)
+    - Fix some crashes on first install (cause: minable entities not yielding anything) (https://mods.factorio.com/mod/dana/discussion/62f76409c19ed12ad1eca777)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.3.0
+Date: 2020-12-02
+  Info:
+    - Migration to Factorio 1.1.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.4
+Date: 2020-12-01
+  Features:
+    - Automated GUI sanity-check & recovery: improved stability against #?%@!y-coded mods.
+    - New toggleable shortcut (bottom-right button) to open/close Dana. (https://raw.githubusercontent.com/vsaulue/factorio-dana/assets/v0_2/dana-shortcut.png)
+    - The Escape key now closes the mod.
+    - Support of LuaPlayer::opened API. Other mods can close Dana when they want screen space, and inversely.
+    - New user mod setting: enable/disable the top-left mod-gui button.
+  Changes:
+    - Query frames can be dragged.
+    - Removed the selection tool shortcut (bottom-right button).
+    - Top-left button now uses the standard mod-gui format with icon.
+  Bugfixes:
+    - Fix crash caused by mods teleporting players to different surfaces (again).
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.3
+Date: 2020-08-21
+  Changes:
+    - If a script teleports the player to another surface, Dana will close its GUI.
+  Bugfixes:
+    - Migration scripts are able to recover from GUI corruptions caused by other scripts (https://mods.factorio.com/mod/dana/discussion/5f36f18423fa1c25793a291f).
+    - Fix crash caused by scripts teleporting players to other surfaces. (https://mods.factorio.com/mod/dana/discussion/5f3d95624ab56be26b4476a8).
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.2
+Date: 2020-08-16
+  Bugfixes:
+    - Fix crash at start-up caused by fluid-powered boilers. (https://mods.factorio.com/mod/dana/discussion/5f38a575532359df0888b9fa)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.1
+Date: 2020-08-15
+  Features:
+    - Support of prototype changes caused by mod update/install/uninstall.
+  Bugfixes:
+    - Fix crash caused while accessing missing prototypes. (https://mods.factorio.com/mod/dana/discussion/5f36f18423fa1c25793a291f)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.2.0
+Date: 2020-08-10
+  Features:
+    - Node aggregation: an intermediate produced by a single transform may be displayed as a single node. (https://raw.githubusercontent.com/vsaulue/factorio-dana/assets/v0_2/node-aggregation.png)
+  Changes:
+    - Transform nodes are slightly brighter.
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.1
+Date: 2020-07-28
+  Bugfixes:
+    - Fix crash on new player joining in multiplayer. (https://forums.factorio.com/viewtopic.php?p=503291#p503291)
+    - Fix crash on right clicking an item/fluid selection button. (https://github.com/vsaulue/factorio-dana/issues/1)
+
+---------------------------------------------------------------------------------------------------
+Version: 0.1.0
+Date: 2020-07-26
+  Info:
+    - Initial release.
