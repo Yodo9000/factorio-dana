@@ -5,6 +5,9 @@ Date: 2025-01-04
     - Updated to Factorio 2.0
   By:
     - Yodo
+  Locale:
+    - added Dutch locale
+    - added Russion locale (by Astorin/Shadow_man)
 
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.1
