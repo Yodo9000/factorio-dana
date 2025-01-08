@@ -7,7 +7,7 @@ Date: 2025-01-04
     - Yodo
   Locale:
     - added Dutch locale
-    - added Russion locale (by Astorin/Shadow_man)
+    - added Russian locale (by Astorin/Shadow_man)
 
 ---------------------------------------------------------------------------------------------------
 Version: 0.3.1
