@@ -139,10 +139,7 @@ Metatable = {
             end
 
             for _,tile in pairs(prototypes.tile) do
-                if tile.type == "tile" then
-                    transform = TileTransform.tryMake(tile, self.intermediates)
-                end
-                tryAddTransform(self, tile.name, transform)
+                tryAddTransform(self, tile.name, TileTransform.tryMake(tile, self.intermediates))
             end
 
             for _,rawRecipe in pairs(prototypes.recipe) do
