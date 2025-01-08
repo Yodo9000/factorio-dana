@@ -25,7 +25,7 @@ local Metatable
 -- Inherits from AbstractTransform.
 --
 -- RO Fields:
--- * rawPump: Prototype of the pump doing this transform.
+-- * rawTile: Prototype of the tile doing this transform.
 --
 local TileTransform = ErrorOnInvalidRead.new{
     -- Restores the metatable of an TileTransform object, and all its owned objects.
@@ -43,16 +43,18 @@ local TileTransform = ErrorOnInvalidRead.new{
     -- * tilePrototype: Factorio prototype of a tile.
     -- * intermediatesDatabase: Database containing the Intermediate object to use for this transform.
     --
-    -- Returns: The new TileTransform object.
+    -- Returns: The new TileTransform object if the entity is pumpable. Nil otherwise.
     --
-    make = function(tilePumpPrototype, intermediatesDatabase)
-        local fluid = intermediatesDatabase.fluid[tilePrototype.fluid.name]
-        local result = AbstractTransform.new({
-            rawPump = tilePrototype,
-            type = "tile",
-        }, Metatable)
-        local unitsPerSecond = 60 * offshorePumpPrototype.pumping_speed
-        result:addProduct(fluid, ProductAmount.makeConstant(unitsPerSecond))
+    tryMake = function(tilePrototype, intermediatesDatabase)
+        local result = nil
+        if tilePrototype.fluid then
+            local fluid = intermediatesDatabase.fluid[tilePrototype.fluid.name]
+            local result = AbstractTransform.new({
+                type = "tile",
+                rawTile = tilePrototype,
+            }, Metatable)
+            result:addRawProductArray(intermediatesDatabase, {{type='fluid', name=tilePrototype.fluid.name, amount=1}}) -- set dummy amount, need to get if from offshorePumpPrototypes otherwise. Why is it even needed? What is it used for?
+        end
         return result
     end,
 
@@ -65,12 +67,12 @@ Metatable = {
     __index = ErrorOnInvalidRead.new{
         -- Implements AbstractTransform:generateSpritePath().
         generateSpritePath = function(self)
-            return AbstractTransform.makeSpritePath("entity", self.rawPump)
+            return AbstractTransform.makeSpritePath("entity", self.rawTile)
         end,
 
         -- Implements AbstractTransform:getTypeStr().
         getShortName = function(self)
-            return self.rawPump.localised_name
+            return self.rawTile.localised_name
         end,
 
         -- Implements AbstractTransform:getTypeStr().

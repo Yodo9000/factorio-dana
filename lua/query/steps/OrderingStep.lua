@@ -64,8 +64,13 @@ Metatable = {
                     sourceSet[product] = true
                 end
             end
-            for _,offshorePump in pairs(force.prototypes.transforms.offshorePump) do
+            --[[for _,offshorePump in pairs(force.prototypes.transforms.offshorePump) do
                 for product in pairs(offshorePump.products) do
+                    sourceSet[product] = true
+                end
+            end]]
+            for _,tile in pairs(force.prototypes.transforms.tile) do
+                for product in pairs(tile.products) do
                     sourceSet[product] = true
                 end
             end

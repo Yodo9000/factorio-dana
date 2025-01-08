@@ -55,7 +55,7 @@ local TransformsDatabase = ErrorOnInvalidRead.new{
         -- Transforms
         object.boiler = ErrorOnInvalidRead.new()
         object.fuel = ErrorOnInvalidRead.new()
-        object.offshorePump = ErrorOnInvalidRead.new()
+        --object.offshorePump = ErrorOnInvalidRead.new()
         object.tile = ErrorOnInvalidRead.new()
         object.recipe = ErrorOnInvalidRead.new()
         object.resource = ErrorOnInvalidRead.new()
@@ -85,10 +85,10 @@ local TransformsDatabase = ErrorOnInvalidRead.new{
             FuelTransform.setmetatable(fuelTransform)
         end
 
-        ErrorOnInvalidRead.setmetatable(object.offshorePump)
+        --[[ErrorOnInvalidRead.setmetatable(object.offshorePump)
         for _,offshoreTransform in pairs(object.offshorePump) do
             OffshorePumpTransform.setmetatable(offshoreTransform)
-        end
+        end]]
 
         ErrorOnInvalidRead.setmetatable(object.tile)
         for _,tileTransform in pairs(object.tile) do
@@ -119,7 +119,7 @@ Metatable = {
         rebuild = function(self, gameScript)
             self.boiler = ErrorOnInvalidRead.new()
             self.fuel = ErrorOnInvalidRead.new()
-            self.offshorePump = ErrorOnInvalidRead.new()
+            --self.offshorePump = ErrorOnInvalidRead.new()
             self.tile = ErrorOnInvalidRead.new()
             self.recipe = ErrorOnInvalidRead.new()
             self.resource = ErrorOnInvalidRead.new()
@@ -130,14 +130,19 @@ Metatable = {
                 local transform = nil
                 if entity.type == "resource" then
                     transform = ResourceTransform.tryMake(entity, self.intermediates)
-                elseif entity.type == "offshore-pump" then
+                --elseif entity.type == "offshore-pump" then
                     --transform = OffshorePumpTransform.make(entity, self.intermediates)
-                elseif entity.type == "tile" then
-                    transform = TileTransform.tryMake(entity, self.intermediates)
                 elseif entity.type == "boiler" then
                     transform = BoilerTransform.tryMake(entity, self.intermediates)
                 end
                 tryAddTransform(self, entity.name, transform)
+            end
+
+            for _,tile in pairs(prototypes.tile) do
+                if tile.type == "tile" then
+                    transform = TileTransform.tryMake(tile, self.intermediates)
+                end
+                tryAddTransform(self, tile.name, transform)
             end
 
             for _,rawRecipe in pairs(prototypes.recipe) do
