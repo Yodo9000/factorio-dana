@@ -117,7 +117,7 @@ end
 -- Returns: The version of the mod currently stored in the global table.
 --
 getInstalledVersion = function()
-    return global.Dana.version or "0.1.0"
+    return storage.Dana.version or "0.1.0"
 end
 
 -- Parses a string representing a version into an array of integer.
