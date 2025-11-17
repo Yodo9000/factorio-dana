@@ -53,7 +53,7 @@ local TileTransform = ErrorOnInvalidRead.new{
                 type = "tile",
                 rawTile = tilePrototype,
             }, Metatable)
-            result:addRawProductArray(intermediatesDatabase, {{type='fluid', name=tilePrototype.fluid.name, amount=1}}) -- set dummy amount, need to get if from offshorePumpPrototypes otherwise. Why is it even needed? What is it used for?
+            result:addRawProductArray(intermediatesDatabase, {{type='fluid', name=tilePrototype.fluid.name, amount=1}}) -- set dummy amount, need to get it from offshorePumpPrototypes otherwise. Why is it even needed? What is it used for?
         end
         return result
     end,
